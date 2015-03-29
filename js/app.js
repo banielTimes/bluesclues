@@ -17,36 +17,68 @@
 
 var appname = 'bluesclues';
 var app = angular.module(appname, [
+    'ui.bootstrap'
 ]);
 
+// -------------------
+// Services
+// -------------------
+/*app.service('DataService', function($http, $q) {
+    var _this = this;
+
+    this.loadData = function() {
+        var defer = $q.defer();
+
+        $http.get('./data/data.js')
+            .success(function(data) {
+                angular.extend(_this, data)
+                defer.resolve();
+            })
+            .error(function() {
+                defer.reject('Could not load data');
+            })
+
+        return defer.promise;
+    }
+
+    return _this;
+})*/
 
 // -------------------
-// Controller
+// Controllers
 // -------------------
-app.controller('BluescluesController', ['$scope', function($scope) {
-//        $scope.code = {digits: ''};
+app.controller('BluescluesController', [
+    '$scope',
 
-    $scope.validateForm = function() {
-        if ($scope.codeForm.$valid) {
-            console.log('code is valid!');
-        } else {
-            console.log('code is NOT valid!');
+    function($scope) {
 
-            $scope.codeForm.submitted = true;
-        }
-    };
+        this.inputCode = {};
 
- /*   $scope.reset = function() {
-         $scope.code = {}
-        $scope.codeForm.submitted = false;
-    }*/
-}]);
-
+    /*    this.validateCode = function(inputCode) {
+            var code;
+            for (code in scope.codes) {
+                if
+            }
+        }*/
+        console.log('wired up services');
+        console.log(questionData[0].code);
+    }
+]);
 
 // -------------------
 // Directives
 // -------------------
-app.directive('codeValidation', function() {
+/*app.directive('validateCode', function() {
+    return {
+        require: ngModel,
+        link: function(scope, elem, attrs, ctrl) {
+            ctrl.$parsers.unshift(function(value))
+        }
+    }
+})*/
+
+
+/*app.directive('validateCode', function() {
     return {
         require: 'ngModel',
         link: function(scope, elem, attrs, ctrl) {
@@ -60,7 +92,7 @@ app.directive('codeValidation', function() {
             })
         }
     }
-});
+});*/
 
 /*app.directive('validationTimeout', function($q, $timeout) {
     return {

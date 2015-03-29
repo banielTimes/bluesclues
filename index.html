@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:ng="http://angularjs.org/">
+<html ng-app="bluesclues" xmlns:ng="http://angularjs.org/">
   <head>
     <meta charset="UTF-8">
     <title>bluesclues</title>
@@ -9,21 +9,25 @@
     <!-- CDN -->
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
   </head>
-  <body ng-app="bluesclues">
+
+  <body ng-controller="BluescluesController as bluescluesCtrl">
     <article class="container">
         <h1 class="card card-container text-center">bluesclues</h1>
 
-        <section class="card card-container" ng-controller="BluescluesController">
-            <form name="codeForm" ng-submit="submitForm(codeForm.$valid)" novalidate>
-                <div class="form-group" ng-class="{ 'has-error' : showValidationMessages && codeForm.digits.$invalid && !codeForm.digits.$pristine }">
+        <section class="card card-container">
+            <form name="codeForm" ng-submit="codeForm.$valid && bluescluesCtrl.validateCode(inputCode)" novalidate>
+                <div class="form-group">
                     <label for="codeInput" class="sr-only">Code:</label>
-                    <input code id="codeInput" type="text" name="digits" class="form-control" ng-model="code.digits"
-                           placeholder="Gib den Code ein!" ng-minlength="6" ng-maxlength="6" code-validation required autofocus/>
+                    <input id="codeInput" type="text" name="digits" class="form-control" ng-model="bluescluesCtrl.inputCode"
+                           placeholder="Gib den Code ein!" ng-minlength="6" ng-maxlength="6" validate-code required autofocus/>
 
+<!--
                     <span popover-placement="bottom" class="error" ng-show="codeForm.digits.$error.minlength">Der Code ist zu kurz!</span>
                     <span popover-placement="bottom" class="error" ng-show="codeForm.digits.$error.maxlength">Der Code ist zu lang!</span>
+-->
 
-                    <button class="btn btn-primary" type="submit" ng-click="showDetails = ! showDetails && codeForm.$valid && code.digits && !codeForm.digits.$error.invalidCode" value="abschicken">abschicken</button>
+                    <button class="btn btn-primary" type="submit" ng-click="showDetails = ! showDetails && codeForm.$valid" value="abschicken">abschicken</button>
+                    <!--&& code.digits && !codeForm.digits.$error.invalidCode-->
                     <!--
                                 <button class="btn btn-default pull-right" data-ng-click="reset()">zurücksetzen</button>
                     -->
@@ -31,17 +35,18 @@
 
                     <!--            <span class="error" ng-show="codeForm.digits.$error.minlength">Falscher Code!</span>
                                 <span class="error" ng-show="codeForm.digits.$error.maxlength">Falscher Code!</span>-->
+<!--
                     <span ng-show="codeForm.$valid.$pending">Überprüfe Code...</span>
+-->
 
                     <!--TODO: debug stuff-->
 
                     <br />
-                    code:{{code.digits}}
+                    code: {{code.digits}}
                     <br />
-                    codeError:{{codeForm.digits.$error}}
+                    codeError: {{codeForm.digits.$error}}
                     <br />
-                    codeValid:{{codeForm.digits.$valid}}
-
+                    codeValid: {{codeForm.digits.$valid}}
 
                 </div>
             </form>
@@ -61,8 +66,10 @@
     <!-- Load Javascript -->
     <!-- Vendor -->
     <script type="text/javascript" src="js/libs/vendor/angular/angular.js"></script>
+    <script type="text/javascript" src="js/libs/vendor/angular-ui-bootstrap-bower/ui-bootstrap.js"></script>
 
     <!-- App -->
+    <script type="text/javascript" src="data/data.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
   </body>
 </html>
