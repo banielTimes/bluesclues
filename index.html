@@ -1,153 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:ng="http://angularjs.org/">
   <head>
     <meta charset="UTF-8">
     <title>bluesclues</title>
-
+    <!-- Stylesheets -->
+    <!-- Local -->
+    <link rel="stylesheet" type="text/css" href="./stylesheet.css" />
+    <!-- CDN -->
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.1/ui-bootstrap-tpls.js"></script>
   </head>
-  <style>
-    .card-container.card {
-      width: 350px;
-      padding: 40px 40px;
-    }
-    .card {
-      background-color: #F7F7F7;
-      /* just in case there no content*/
-      padding: 20px 25px 30px;
-      margin: 0 auto 25px;
-      margin-top: 50px;
-      /* shadows and rounded borders */
-      -moz-border-radius: 2px;
-      -webkit-border-radius: 2px;
-      border-radius: 2px;
-      -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-      -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-      box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-    }
-    .btn {
-      margin-top: 10px;
-    }
-  </style>
   <body ng-app="bluesclues">
-    <script>
-      var app = angular.module('bluesclues', ['ui.bootstrap']);
-
-      // -------------------
-      // Controller
-      // -------------------
-      app.controller('BluescluesController', ['$scope', function($scope) {
-//        $scope.code = {digits: ''};
-
-        $scope.validateForm = function() {
-          if ($scope.codeForm.$valid) {
-            console.log('code is valid!');
-          } else {
-            console.log('code is NOT valid!')
-
-            $scope.codeForm.submitted = true;
-          }
-        }
-
-        /*$scope.reset = function() {
-          $scope.code = {}
-          $scope.codeForm.submitted = false;
-        }*/
-      }]);
-
-
-      // -------------------
-      // Directives
-      // -------------------
-      app.directive('codeValidation', function() {
-        return {
-          require: 'ngModel',
-          link: function(scope, elem, attrs, ctrl) {
-            ctrl.$parsers.unshift(function(value) {
-              if (value) {
-                var valid = value === '123456';
-                ctrl.$setValidity('invalidCode', valid);
-              }
-
-              return valid ? valid : undefined;
-            })
-          }
-        }
-      })
-
-      /*app.directive('validationTimeout', function($q, $timeout) {
-        return {
-          require: 'ngModel',
-          link: function(scope, elm, attrs, ctrl) {
-            var codes = ['123456'];
-
-            ctrl.$asyncValidators.code = function(modelValue, viewValue) {
-              var def = $q.defer();
-
-              $timeout(function() {
-                //delayed response :P
-                if (codes.indexOf(modelValue) === -1) {
-                  def.reject();
-                } else {
-                  def.resolve();
-                }
-              }, 2000);
-
-              return def.promise;
-            }
-          }
-        }
-      })*/
-
-    </script>
-
     <article class="container">
+        <h1 class="card card-container text-center">bluesclues</h1>
 
-      <h1 class="card card-container text-center">bluesclues</h1>
+        <section class="card card-container" ng-controller="BluescluesController">
+            <form name="codeForm" ng-submit="submitForm(codeForm.$valid)" novalidate>
+                <div class="form-group" ng-class="{ 'has-error' : showValidationMessages && codeForm.digits.$invalid && !codeForm.digits.$pristine }">
+                    <label for="codeInput" class="sr-only">Code:</label>
+                    <input code id="codeInput" type="text" name="digits" class="form-control" ng-model="code.digits"
+                           placeholder="Gib den Code ein!" ng-minlength="6" ng-maxlength="6" code-validation required autofocus/>
 
-      <section ng-controller="BluescluesController" class="card card-container">
-        <form name="codeForm" ng-submit="submitForm(codeForm.$valid)" novalidate>
-          <div class="form-group" ng-class="{ 'has-error' : showValidationMessages && codeForm.digits.$invalid && !codeForm.digits.$pristine }">
-            <label for="codeInput" class="sr-only">Code:</label>
-            <input code id="codeInput" type="text" name="digits" class="form-control" ng-model="code.digits"
-                   placeholder="Gib den Code ein!" ng-minlength="6" ng-maxlength="6" code-validation required autofocus/>
+                    <span popover-placement="bottom" class="error" ng-show="codeForm.digits.$error.minlength">Der Code ist zu kurz!</span>
+                    <span popover-placement="bottom" class="error" ng-show="codeForm.digits.$error.maxlength">Der Code ist zu lang!</span>
 
-            <span popover-placement="bottom" class="error" ng-show="codeForm.digits.$error.minlength">Der Code ist zu kurz!</span>
-            <span popover-placement="bottom" class="error" ng-show="codeForm.digits.$error.maxlength">Der Code ist zu lang!</span>
+                    <button class="btn btn-primary" type="submit" ng-click="showDetails = ! showDetails && codeForm.$valid && code.digits && !codeForm.digits.$error.invalidCode" value="abschicken">abschicken</button>
+                    <!--
+                                <button class="btn btn-default pull-right" data-ng-click="reset()">zurücksetzen</button>
+                    -->
+                    <br />
 
-            <button class="btn btn-primary" type="submit" ng-click="showDetails = ! showDetails && codeForm.$valid && code.digits && !codeForm.digits.$error.invalidCode" value="abschicken">abschicken</button>
-<!--
-            <button class="btn btn-default pull-right" data-ng-click="reset()">zurücksetzen</button>
--->
-            <br />
+                    <!--            <span class="error" ng-show="codeForm.digits.$error.minlength">Falscher Code!</span>
+                                <span class="error" ng-show="codeForm.digits.$error.maxlength">Falscher Code!</span>-->
+                    <span ng-show="codeForm.$valid.$pending">Überprüfe Code...</span>
 
-<!--            <span class="error" ng-show="codeForm.digits.$error.minlength">Falscher Code!</span>
-            <span class="error" ng-show="codeForm.digits.$error.maxlength">Falscher Code!</span>-->
-            <span ng-show="codeForm.$valid.$pending">Überprüfe Code...</span>
+                    <!--TODO: debug stuff-->
 
-            <br />
-            code:{{code.digits}}
-            <br />
-            codeError:{{codeForm.digits.$error}}
-            <br />
-            codeValid:{{codeForm.digits.$valid}}
+                    <br />
+                    code:{{code.digits}}
+                    <br />
+                    codeError:{{codeForm.digits.$error}}
+                    <br />
+                    codeValid:{{codeForm.digits.$valid}}
 
 
-          </div>
-        </form>
+                </div>
+            </form>
 
-        <form>
-          <div ng-class="{ 'hidden': ! showDetails }">
-            <label>Frage:</label>
-            <input type="radio" name="answer" value="answer1">Antwort1</input>
-            <input type="radio" name="answer" value="answer2">Antwort2</input>
-            <input type="radio" name="answer" value="answer3">Antwort3</input>
-            <input type="radio" name="answer" value="answer4">Antwort4</input>
-          </div>
-        </form>
-      </section>
+            <form>
+                <div ng-class="{ 'hidden': ! showDetails }">
+                    <label>Frage:</label>
+                    <input type="radio" name="answer" value="answer1">Antwort1</input>
+                    <input type="radio" name="answer" value="answer2">Antwort2</input>
+                    <input type="radio" name="answer" value="answer3">Antwort3</input>
+                    <input type="radio" name="answer" value="answer4">Antwort4</input>
+                </div>
+            </form>
+        </section>
     </article>
+
+    <!-- Load Javascript -->
+    <!-- Vendor -->
+    <script type="text/javascript" src="js/libs/vendor/angular/angular.js"></script>
+
+    <!-- App -->
+    <script type="text/javascript" src="js/app.js"></script>
   </body>
 </html>
