@@ -70,13 +70,8 @@ app.controller('CluesController', [
 
                     console.log('set code valid');
                     return cluesCtrl.validCode = true;
-                } else {
-                    return;
                 };
             });
-
-            console.log(cluesCtrl.validCode);
-            console.log(cluesCtrl.inputCode);
         };
 
         /*$scope.question = $filter('filter')(bluescluesData, function(question) {
