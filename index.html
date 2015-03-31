@@ -7,7 +7,7 @@
     <!-- Local -->
     <link rel="stylesheet" type="text/css" href="./stylesheet.css" />
     <!-- CDN -->
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="./js/libs/vendor/bootstrap/dist/css/bootstrap.css" />
   </head>
 
   <body>
@@ -30,23 +30,7 @@
                            ng-change="question = null"
                            required autofocus/>
 
-<!--
-                    <span popover-placement="bottom" class="error" ng-show="codeForm.digits.$error.minlength">Der Code ist zu kurz!</span>
-                    <span popover-placement="bottom" class="error" ng-show="codeForm.digits.$error.maxlength">Der Code ist zu lang!</span>
--->
-
                     <button class="btn btn-primary" type="submit" ng-click="codeForm.$valid" value="abschicken">abschicken</button>
-                    <!--&& code.digits && !codeForm.digits.$error.invalidCode-->
-                    <!--
-                                <button class="btn btn-default pull-right" data-ng-click="reset()">zurücksetzen</button>
-                    -->
-                    <br />
-
-                    <!--            <span class="error" ng-show="codeForm.digits.$error.minlength">Falscher Code!</span>
-                                <span class="error" ng-show="codeForm.digits.$error.maxlength">Falscher Code!</span>-->
-<!--
-                    <span ng-show="codeForm.$valid.$pending">Überprüfe Code...</span>
--->
                 </div>
             </form>
 
