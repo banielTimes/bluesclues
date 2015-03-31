@@ -1,11 +1,11 @@
 /**
  * ******************************************************************************************************
  *
- *   Bluesclues
+ *   bluesclues
  *
  *   Main Application Script
  *
- *  @author     Daniel Sy
+ *  @author     banielTimes
  *  @date       March 2015
  *
  * ******************************************************************************************************
@@ -47,27 +47,74 @@ var app = angular.module(appname, [
 // -------------------
 // Controllers
 // -------------------
-app.controller('BluescluesController', [
+app.controller('CluesController', [
     '$scope',
+    '$filter',
 
-    function($scope) {
+    function($scope, $filter) {
 
-        this.inputCode = {};
+        var cluesCtrl = this;
+        $scope.bluescluesData = bluescluesData;
 
-    /*    this.validateCode = function(inputCode) {
-            var code;
-            for (code in scope.codes) {
-                if
-            }
-        }*/
-        console.log('wired up services');
-        console.log(questionData[0].code);
+        cluesCtrl.inputCode = {};
+        cluesCtrl.validCode = {};
+
+        cluesCtrl.validateCode = function(inputCode) {
+
+            cluesCtrl.validCode = false;
+
+            angular.forEach(bluescluesData, function (clue) {
+
+                if (cluesCtrl.inputCode == clue.code) {
+                    $scope.question = clue;
+
+                    console.log('set code valid');
+                    return cluesCtrl.validCode = true;
+                } else {
+                    return;
+                };
+            });
+
+            console.log(cluesCtrl.validCode);
+            console.log(cluesCtrl.inputCode);
+        };
+
+        /*$scope.question = $filter('filter')(bluescluesData, function(question) {
+            return question.code == $scope.inputCode;
+        })[0];
+
+        console.log($scope.question);*/
     }
 ]);
 
 // -------------------
 // Directives
 // -------------------
+/*app.directive('question', function() {
+    return {
+        restrict: 'E',
+        scope: true,
+        templateUrl: 'question.html'
+    };
+});*/
+
+// -------------------
+// Services
+// -------------------
+/*app.factory('questionFactory', function($filter) {
+    var question;
+
+    return {
+        findQuestion: function(code, data) {
+            question = $filter('filter')(bluescluesData, function(question) {
+                return question.code == code;
+            })[0];
+
+            return question;
+        }
+    };
+})*/
+
 /*app.directive('validateCode', function() {
     return {
         require: ngModel,

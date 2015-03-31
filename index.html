@@ -10,23 +10,29 @@
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
   </head>
 
-  <body ng-controller="BluescluesController as bluescluesCtrl">
-    <article class="container">
+  <body>
+    <article class="container" ng-controller="CluesController as cluesCtrl">
         <h1 class="card card-container text-center">bluesclues</h1>
 
         <section class="card card-container">
-            <form name="codeForm" ng-submit="codeForm.$valid && bluescluesCtrl.validateCode(inputCode)" novalidate>
+            <form name="codeForm" ng-submit="codeForm.$valid && cluesCtrl.validateCode(inputCode)" novalidate>
                 <div class="form-group">
                     <label for="codeInput" class="sr-only">Code:</label>
-                    <input id="codeInput" type="text" name="digits" class="form-control" ng-model="bluescluesCtrl.inputCode"
-                           placeholder="Gib den Code ein!" ng-minlength="6" ng-maxlength="6" validate-code required autofocus/>
+                    <input id="codeInput"
+                           type="text"
+                           name="digits"
+                           class="form-control"
+                           ng-model="cluesCtrl.inputCode"
+                           placeholder="Gib den Code ein!"
+                           ng-minlength="6" ng-maxlength="6"
+                           required autofocus/>
 
 <!--
                     <span popover-placement="bottom" class="error" ng-show="codeForm.digits.$error.minlength">Der Code ist zu kurz!</span>
                     <span popover-placement="bottom" class="error" ng-show="codeForm.digits.$error.maxlength">Der Code ist zu lang!</span>
 -->
 
-                    <button class="btn btn-primary" type="submit" ng-click="showDetails = ! showDetails && codeForm.$valid" value="abschicken">abschicken</button>
+                    <button class="btn btn-primary" type="submit" ng-click="codeForm.$valid" value="abschicken">abschicken</button>
                     <!--&& code.digits && !codeForm.digits.$error.invalidCode-->
                     <!--
                                 <button class="btn btn-default pull-right" data-ng-click="reset()">zurücksetzen</button>
@@ -42,22 +48,46 @@
                     <!--TODO: debug stuff-->
 
                     <br />
-                    code: {{code.digits}}
+                    code: {{codeCtrl.inputCode}}
                     <br />
-                    codeError: {{codeForm.digits.$error}}
+                    codeFormError: {{codeForm.digits.$error}}
                     <br />
-                    codeValid: {{codeForm.digits.$valid}}
+                    codeFormValid: {{codeForm.digits.$valid}}
+                    <br />
+                    validCode: {{codeCtrl.validCode}}
+                    <br />
+                    validatedCode: {{validatedCode}}
+                    <br />
+                    codes: {{bluescluesData[1].code}}
+                    <br />
+                    question: {{question}}
 
                 </div>
             </form>
 
+        </section>
+
+        <p>This is sweg {{question}}</p>
+
+        <section class="card card-container" ng-show="question != null && codeForm.$valid">
             <form>
-                <div ng-class="{ 'hidden': ! showDetails }">
+                <div>
                     <label>Frage:</label>
-                    <input type="radio" name="answer" value="answer1">Antwort1</input>
-                    <input type="radio" name="answer" value="answer2">Antwort2</input>
-                    <input type="radio" name="answer" value="answer3">Antwort3</input>
-                    <input type="radio" name="answer" value="answer4">Antwort4</input>
+                    <p>{{question.question}}</p>
+
+                    <ul>
+                        <div>
+                            <input type="radio" name="answer" value="answer1"> {{question.answers[0].a}}</input>
+                        </div>
+                        <div>
+                            <input type="radio" name="answer" value="answer2"> {{question.answers[1].b}}</input>
+                        </div>
+                        <div>
+                            <input type="radio" name="answer" value="answer3"> {{question.answers[2].c}}</input>
+                        </div>
+                    </ul>
+
+                    <button class="btn btn-primary">abschicken</button>
                 </div>
             </form>
         </section>
