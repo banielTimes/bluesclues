@@ -67,27 +67,34 @@
 
         </section>
 
-        <p>This is sweg {{question}}</p>
-
         <section class="card card-container" ng-show="question != null && codeForm.$valid">
-            <form>
+            <form name="questionForm" >
                 <div>
                     <label>Frage:</label>
                     <p>{{question.question}}</p>
 
-                    <ul>
-                        <div>
-                            <input type="radio" name="answer" value="answer1"> {{question.answers[0].a}}</input>
-                        </div>
-                        <div>
-                            <input type="radio" name="answer" value="answer2"> {{question.answers[1].b}}</input>
-                        </div>
-                        <div>
-                            <input type="radio" name="answer" value="answer3"> {{question.answers[2].c}}</input>
-                        </div>
-                    </ul>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input ng-model="question.selected" ng-disabled="question.selected" type="radio" name="{{question.code}}" value="a">
+                        </span>
+                        <p class="form-control">{{question.answers[0].a}}</p>
+                    </div>
 
-                    <button class="btn btn-primary">abschicken</button>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input ng-model="question.selected" ng-disabled="question.selected" type="radio" name="{{question.code}}" value="b">
+                        </span>
+                        <p class="form-control">{{question.answers[1].b}}</p>
+                    </div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input ng-model="question.selected" ng-disabled="question.selected" type="radio" name="{{question.code}}" value="c">
+                        </span>
+                        <p class="form-control">{{question.answers[2].c}}</p>
+                    </div>
+
+                    {{question.selected === question.correctAnswer ? "Richtig!" : null}}
                 </div>
             </form>
         </section>
