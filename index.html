@@ -2,7 +2,7 @@
 <html ng-app="bluesclues" xmlns:ng="http://angularjs.org/">
   <head>
     <meta charset="UTF-8">
-    <title>bluesclues</title>
+    <title>Ostercamp</title>
     <!-- Stylesheets -->
     <!-- Local -->
     <link rel="stylesheet" type="text/css" href="./stylesheet.css" />
@@ -12,7 +12,9 @@
 
   <body>
     <article class="container" ng-controller="CluesController as cluesCtrl">
-        <h1 class="card card-container text-center">bluesclues</h1>
+        <h1 class="card card-container text-center">
+            <img src="images/Ostercamp.png" class="img-responsive">
+        </h1>
 
         <section class="card card-container">
             <form name="codeForm" ng-submit="codeForm.$valid && cluesCtrl.validateCode(inputCode)" novalidate>
@@ -44,24 +46,6 @@
 <!--
                     <span ng-show="codeForm.$valid.$pending">Überprüfe Code...</span>
 -->
-
-                    <!--TODO: debug stuff-->
-
-                    <br />
-                    code: {{codeCtrl.inputCode}}
-                    <br />
-                    codeFormError: {{codeForm.digits.$error}}
-                    <br />
-                    codeFormValid: {{codeForm.digits.$valid}}
-                    <br />
-                    validCode: {{codeCtrl.validCode}}
-                    <br />
-                    validatedCode: {{validatedCode}}
-                    <br />
-                    codes: {{bluescluesData[1].code}}
-                    <br />
-                    question: {{question}}
-
                 </div>
             </form>
 
@@ -98,7 +82,14 @@
                 </div>
             </form>
         </section>
+
     </article>
+
+    <footer class="footer">
+        <div class="clues-footer pull-right">
+            <img src="images/png_Logo_horizontal_pantone-301-U_A4.png" class="img-responsive adventure-logo">
+        </div>
+    </footer>
 
     <!-- Load Javascript -->
     <!-- Vendor -->

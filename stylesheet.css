@@ -32,3 +32,15 @@
 .btn {
     margin-top: 10px;
 }
+.footer {
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 75px;
+}
+.clues-footer {
+    width: 30%;
+}
+.adventure-logo {
+    padding: 10px;
+}
