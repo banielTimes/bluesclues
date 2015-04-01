@@ -17,7 +17,7 @@
 
 var appname = 'bluesclues';
 var app = angular.module(appname, [
-    'ui.bootstrap'
+    'ngMaterial'
 ]);
 
 // -------------------

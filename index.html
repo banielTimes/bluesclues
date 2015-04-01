@@ -6,20 +6,27 @@
     <!-- Stylesheets -->
     <!-- Local -->
     <link rel="stylesheet" type="text/css" href="./stylesheet.css" />
-    <!-- CDN -->
+    <!-- Vendor -->
     <link rel="stylesheet" type="text/css" href="./js/libs/vendor/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="./js/libs/vendor/angular-material/angular-material.css" />
   </head>
 
   <body>
+    <header class="header">
+        <div class="clues-footer pull-right">
+            <img src="images/png_Logo_horizontal_pantone-301-U_A4.png" class="img-responsive adventure-logo">
+        </div>
+    </header>
+
     <article class="container" ng-controller="CluesController as cluesCtrl">
-        <h1 class="card card-container text-center">
+        <h1 class="md-whiteframe-z1 card text-center">
             <img src="images/Ostercamp.png" class="img-responsive">
         </h1>
 
-        <section class="card card-container">
+        <md-card class="md-whiteframe-z1 card">
             <form name="codeForm" ng-submit="codeForm.$valid && cluesCtrl.validateCode(inputCode)" novalidate>
-                <div class="form-group">
-                    <label for="codeInput" class="sr-only">Code:</label>
+                <md-input-container class="form-group" flex>
+                    <label for="codeInput">Code</label>
                     <input id="codeInput"
                            type="text"
                            name="digits"
@@ -30,56 +37,40 @@
                            ng-change="question = null"
                            required autofocus/>
 
-                    <button class="btn btn-primary" type="submit" ng-click="codeForm.$valid" value="abschicken">abschicken</button>
-                </div>
+
+                </md-input-container>
+                <md-button class="md-raised md-primary" type="submit" ng-click="codeForm.$valid"
+                           value="abschicken">abschicken</md-button>
             </form>
+        </md-card>
 
-        </section>
-
-        <section class="card card-container" ng-show="question != null && codeForm.$valid">
+        <md-card class="md-whiteframe-z1 card" ng-show="question != null && codeForm.$valid">
             <form name="questionForm" >
                 <div>
-                    <label>Frage:</label>
                     <p>{{question.question}}</p>
 
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <input ng-model="question.selected" ng-disabled="question.selected" type="radio" name="{{question.code}}" value="a">
-                        </span>
-                        <p class="form-control">{{question.answers[0].a}}</p>
-                    </div>
-
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <input ng-model="question.selected" ng-disabled="question.selected" type="radio" name="{{question.code}}" value="b">
-                        </span>
-                        <p class="form-control">{{question.answers[1].b}}</p>
-                    </div>
-
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <input ng-model="question.selected" ng-disabled="question.selected" type="radio" name="{{question.code}}" value="c">
-                        </span>
-                        <p class="form-control">{{question.answers[2].c}}</p>
-                    </div>
+                    <md-radio-group ng-model="question.selected" class="question">
+                        <md-radio-button ng-disabled="question.selected" aria-label="{{question.answers[0].a}}"
+                                         name="{{question.code}}" value="a">{{question.answers[0].a}}</md-radio-button>
+                        <md-radio-button ng-disabled="question.selected" aria-label="{{question.answers[1].b}}"
+                                         name="{{question.code}}" value="b">{{question.answers[1].b}}</md-radio-button>
+                        <md-radio-button ng-disabled="question.selected" aria-label="{{question.answers[2].c}}"
+                                         name="{{question.code}}" value="c">{{question.answers[2].c}}</md-radio-button>
+                    </md-radio-group>
 
                     {{question.selected === question.correctAnswer ? "Richtig!" : null}}
                 </div>
             </form>
-        </section>
+        </md-card>
 
     </article>
-
-    <footer class="footer">
-        <div class="clues-footer pull-right">
-            <img src="images/png_Logo_horizontal_pantone-301-U_A4.png" class="img-responsive adventure-logo">
-        </div>
-    </footer>
 
     <!-- Load Javascript -->
     <!-- Vendor -->
     <script type="text/javascript" src="js/libs/vendor/angular/angular.js"></script>
-    <script type="text/javascript" src="js/libs/vendor/angular-ui-bootstrap-bower/ui-bootstrap.js"></script>
+    <script type="text/javascript" src="js/libs/vendor/angular-aria/angular-aria.js"></script>
+    <script type="text/javascript" src="js/libs/vendor/angular-animate/angular-animate.js"></script>
+    <script type="text/javascript" src="js/libs/vendor/angular-material/angular-material.js"></script>
 
     <!-- App -->
     <script type="text/javascript" src="data/data.js"></script>

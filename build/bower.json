@@ -20,6 +20,7 @@
   ],
   "dependencies": {
     "angular": null,
-    "angular-ui-bootstrap-bower": null
+    "angular-material": null,
+    "bootstrap": null
   }
 }
