@@ -49,4 +49,5 @@ app.controller('CluesController', [
     }
 ]);
 
+
 console.log('App booted up!');
