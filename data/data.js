@@ -33,6 +33,17 @@
        {"c": "150 Jahre"}
      ],
      "correctAnswer": "a"
+   },
+   {
+     "code": 111111,
+     "question": "bla",
+     "picture": "dummypic",
+     "answers": [
+       {"a": "1"},
+       {"b": "2"},
+       {"c": "3"}
+     ],
+     "correctAnswer": "a"
    }
 
  ]

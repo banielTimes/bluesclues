@@ -47,7 +47,7 @@
         <md-card class="md-whiteframe-z1 card" ng-show="question != null && codeForm.$valid">
             <form name="questionForm" >
                 <div>
-                    <img ng-src="data/pictures/{{ question.picture }}" class="img-rounded" onerror="this.src='http://placehold.it/350x150'">
+                    <img ng-src="data/pictures/{{ question.picture }}" class="img-rounded" onerror="this.src='images/fallback.png'">
                     <p>{{question.question}}</p>
 
                     <md-radio-group ng-model="question.selected" class="question">
